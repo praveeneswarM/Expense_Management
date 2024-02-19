@@ -42,14 +42,14 @@ public static void SignIn()
 
 public static void SignUp()
 {
-    System.out.print("SignUp:");
-    System.out.print("Enter Name:");
+    System.out.println("SignUp:");
+    System.out.print("Enter Name: ja");
     String name=sc.nextLine().trim();
-    System.out.print("Enter Email:");
+    System.out.print("Enter Email: ");
     String mail=sc.nextLine().trim().toLowerCase();
-    System.out.print("Enter Password");
+    System.out.print("Enter Password: ");
     String pass=sc.nextLine().trim();
-    System.out.print("Confirm password");
+    System.out.print("Confirm password: ");
     String cpass=sc.nextLine().trim();
     String ret=Authval.sup(name,mail,pass,cpass);
     if(ret!=null)
