@@ -14,7 +14,8 @@ public class u_menu {
             System.out.println("1.Add Budget");
             System.out.println("2.Add Catogory");
             System.out.println("3.View Balance");
-            System.out.println("4.Exit");
+            System.out.println("4.Reset");
+            System.out.println("5.Exit");
             System.out.println();
             System.out.print("Enter Choice:");
             n=sc.nextInt();
@@ -34,7 +35,11 @@ public class u_menu {
                     ViwBal(u_id);
                     break;
                 }
-                case 4:{
+                case 4:
+                {
+                    Reset(u_id);
+                }
+                case 5:{
                     System.out.println("Exited Succesfully!!");
                     System.exit(0);
                 }
@@ -44,7 +49,7 @@ public class u_menu {
                     break;
                 }
             }
-        }while(n!=4);
+        }while(n!=5);
     }
 
 
@@ -53,12 +58,7 @@ public class u_menu {
         sc.nextLine();
         System.out.print("Enter Amount:");
         String amt=sc.nextLine().trim();
-        System.out.print("Enter Start Date (yyyy-mm-dd):");
-        String std=sc.nextLine().trim();
-        System.out.print("Enter End Date(yyyy-mm-dd):");
-        String end=sc.nextLine().trim();
-        boolean ret=uval.BudVal(u_id, amt, std, end);
-        if(ret){
+        if(bud.addbud(u_id, amt)){
             System.out.println();
             System.out.println("---Budget Added Succesfully!---");
         }
@@ -113,9 +113,26 @@ public class u_menu {
         
         ArrayList<String> columnDataList = new ArrayList<>();
         columnDataList=bal.Bal(u_id);
-        for(String e:columnDataList)
+        for(Object e:columnDataList)
         {
             System.out.println("\t"+e);
         }
     }
+
+    public static void Reset(String u_id)
+    {
+        System.out.println();
+        System.out.print("Remaning Balance: ");
+        String ret=bal.reset(u_id);
+        if(ret!=null)
+        {
+            System.out.print(ret);
+            System.out.println();
+        }
+        else
+        {
+            System.out.println("---Try Again---");
+        }
+    }
+
 }
