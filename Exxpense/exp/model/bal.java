@@ -52,4 +52,37 @@ public class bal {
         }
         return null;
     }
+
+    public static String reset(String u_id)
+    {
+        try{
+            String bal="";
+            String sql="SELECT amt FROM bud WHERE id=?";
+            PreparedStatement stmt=con.prepareStatement(sql);
+            stmt.setString(1, u_id);
+            ResultSet rt=stmt.executeQuery();
+            if(rt.next())
+            {
+                String amt=rt.getString("amt");
+                bal+=amt;
+                String z="UPDATE bud SET amt=0 WHERE id=?";
+                PreparedStatement pt=con.prepareStatement(z);
+                pt.setString(1, u_id);
+                int rr=pt.executeUpdate();
+                if(rr>0)
+                {
+                    String g="UPDATE u_cat SET Mobile_Bill=0,EB_Bill=0,Rent=0,Dine_Out=0,Grocery=0,Travel_Expence=0,Savings=0,Medical_Expence=0,Other_Expences=0 WHERE id=?";
+                    PreparedStatement pp=con.prepareStatement(g);
+                    pp.setString(1, u_id);
+                    pp.executeUpdate();
+                }
+                return bal;
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
