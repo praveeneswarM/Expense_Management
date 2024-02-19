@@ -17,10 +17,10 @@ public class bud {
         }
     }
 
-    public static boolean addbud(String u_id,String amt,String std,String end)
+    public static boolean addbud(String u_id,String amt)
     {
         try{
-            String sq="SELECT id FROM bud";
+            String sq="SELECT id FROM bud WHERE id="+u_id+"";
             PreparedStatement c=con.prepareStatement(sq);
             ResultSet rr=c.executeQuery();
             if(rr.next())
@@ -28,12 +28,10 @@ public class bud {
                 String id=rr.getString("id");
                 if(id.equals(u_id))
                 {
-                    String sql="UPDATE bud SET amt=?,std=?,end=? WHERE id=?";
+                    String sql="UPDATE bud SET amt=? WHERE id=?";
                     PreparedStatement stmt=con.prepareStatement(sql);
-                    stmt.setString(1, amt);
-                    stmt.setString(2, std);
-                    stmt.setString(3, end);
-                    stmt.setString(4, u_id);
+                    stmt.setInt(1, Integer.valueOf(amt));
+                    stmt.setString(2, u_id);
                     int rt=stmt.executeUpdate();
                     if(rt>0)
                     return true;
@@ -43,18 +41,15 @@ public class bud {
             }
             else
             {
-                String ss="INSERT INTO bud (id,amt,std,end) VALUES (?,?,?,?)";
+                String ss="INSERT INTO bud (id,amt) VALUES (?,?)";
                 PreparedStatement cc=con.prepareStatement(ss);
                 cc.setString(1, u_id);
                 cc.setString(2, amt);
-                cc.setString(3, std);
-                cc.setString(4, end);
                 int rrt=cc.executeUpdate();
                 if(rrt>0)
                 return true;
                 else
                 return false;
-
             }
         }catch(SQLException e){
             e.printStackTrace();
