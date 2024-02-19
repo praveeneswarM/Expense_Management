@@ -19,7 +19,7 @@ public class user {
     public static String signin(String mail,String pas)
     {
         try{
-            String sql="SELECT * FROM user WHERE mail=?";
+            String sql="SELECT * FROM user WHERE mail=?";   
             PreparedStatement stmt=con.prepareStatement(sql);
             stmt.setString(1, mail);
             ResultSet rt=stmt.executeQuery();
